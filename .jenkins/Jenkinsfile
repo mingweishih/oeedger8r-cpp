@@ -49,9 +49,9 @@ def WindowsBuild(String label) {
                 checkout scm
                 bat """
                     vcvars64.bat x64 && \
-                    cmake ${WORKSPACE}
+                    cmake.exe ${WORKSPACE}
                     make -j 4
-                    ctest --output-on-failure --timeout ${CTEST_TIMEOUT_SECONDS}
+                    ctest.exe -V --output-on-failure --timeout ${CTEST_TIMEOUT_SECONDS}
                     """
             }
         }
@@ -65,8 +65,8 @@ try {
             "ACC1604 clang-7":          { LinuxBuild(AGENTS_LABELS["acc-ubuntu-16.04"], 'clang-7',) },
             "ACC1804 clang-7":          { LinuxBuild(AGENTS_LABELS["acc-ubuntu-18.04"], 'clang-7') },
             "RHEL 8 gcc 8":             { LinuxBuild(AGENTS_LABELS["acc-rhel-8"], 'gcc') },
-            "Win 2016 Clang 7":         { WindowsBuild(AGENTS_LABELS["acc-win2016"]) },
-            "Win 2019 Clang 7":         { WindowsBuild(AGENTS_LABELS["acc-win2019"]) }
+            "Win 2016 MVC":             { WindowsBuild(AGENTS_LABELS["acc-win2016"]) },
+            "Win 2019 MVC":             { WindowsBuild(AGENTS_LABELS["acc-win2019"]) }
         ]
 
         parallel testing_stages
